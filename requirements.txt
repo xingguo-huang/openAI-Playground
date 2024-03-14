@@ -2,3 +2,4 @@ python-dotenv
 openai
 requests
 streamlit
+altair<5.0 # this is to deal with the error when running streamlit :ModuleNotFoundError: No module named 'altair.vegalite.v4'
