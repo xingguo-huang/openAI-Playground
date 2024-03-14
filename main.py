@@ -17,23 +17,23 @@ client = openai.OpenAI()
 
 #================================================================================================
 
-response = client.images.generate(
-  model="dall-e-3",
-  # prompt="a wooden boardwalk leading through a lush green meadow or wetland area. The grass and vegetation on either side of the boardwalk are dense and tall, suggesting a natural, possibly preserved or untouched environment. Above, there is a beautiful blue sky with scattered clouds, indicating fair weather. The setting appears peaceful and is likely a place for walking, nature observation, or conservation. There are no people visible in the image",
-  # prompt="大漠孤烟直，长河落日圆",
-  # prompt="独在异乡为异客，每逢佳节倍思亲",
-  # prompt="鲁智深倒拔垂杨柳",
-  # prompt="鹅鹅鹅，曲项向天歌，白毛浮绿水，红掌拨清波",
-  # prompt="慈母手中线，游子身上衣，临行密密缝，意恐迟迟归",
-  prompt="白日依山尽，黄河入海流",
-  size="1024x1024",
-  quality="standard",
-  n=1,
-)
+# response = client.images.generate(
+#   model="dall-e-3",
+#   # prompt="a wooden boardwalk leading through a lush green meadow or wetland area. The grass and vegetation on either side of the boardwalk are dense and tall, suggesting a natural, possibly preserved or untouched environment. Above, there is a beautiful blue sky with scattered clouds, indicating fair weather. The setting appears peaceful and is likely a place for walking, nature observation, or conservation. There are no people visible in the image",
+#   # prompt="大漠孤烟直，长河落日圆",
+#   # prompt="独在异乡为异客，每逢佳节倍思亲",
+#   # prompt="鲁智深倒拔垂杨柳",
+#   # prompt="鹅鹅鹅，曲项向天歌，白毛浮绿水，红掌拨清波",
+#   # prompt="慈母手中线，游子身上衣，临行密密缝，意恐迟迟归",
+#   prompt="白日依山尽，黄河入海流",
+#   size="1024x1024",
+#   quality="standard",
+#   n=1,
+# )
 
-image_url = response.data[0].url
-st.image(image_url, caption="Generated Image") 
-st.write(image_url)
+# image_url = response.data[0].url
+# st.image(image_url, caption="Generated Image") 
+# st.write(image_url)
 
 #================================================================================================
 # response = client.images.create_variation(
@@ -71,3 +71,26 @@ st.write(image_url)
 # st.image(image_url, caption="feeding Image to model")
 # st.write(response.choices[0].message.content)
 #================================================================================================
+
+from pathlib import Path
+
+speech_file_path = Path(__file__).parent / "speech.mp3"
+response = client.audio.speech.create(
+  model="tts-1",
+  voice="nova",
+  # input="""Today is a wonderful day to build something people love!"""
+  input="""Hi, everyone. Today, I'll discuss· the causes and risk factors of ·major depression, also known as· Major Depressive Disorder (MDD). 
+Major depression· is a complex mental health disorder· influenced by· various factors. While· we don't fully understand· its exact cause, it's believed to stem from· a combination of genetic, biological, environmental, and psychological elements.
+ Genetic factors play a role. Evidence suggests· a genetic predisposition, with individuals· having a family history of depression· being at higher risk
+.Furthermore, biological factors, such as neurotransmitter imbalances like serotonin, dopamine, and norepinephrine, are thought to play a role · in depression, and changes in brain structure· are also significant contributors.
+ Psychological factors also contribute. Certain personality traits, such as a pessimistic outlook, low self-esteem, or a history of trauma and abuse, may contribute to the development of depression. Stressful life events, such as loss, trauma, or chronic stress, can also trigger depressive episodes.
+ Moreover, hormonal changes, including fluctuations during periods such as pregnancy, postpartum, and menopause, may contribute to the onset of depression. 
+Additionally, chronic medical conditions such as chronic pain, cancer, or neurological disorders, can increase the risk of depression. Substance abuse, including alcohol and drug misuse, can contribute to ·the development or exacerbation· of major depression
+ Furthermore, environmental stressors, such as financial difficulties, unemployment, or exposure to violence, can contribute to the onset of depression.
+Lastly, social isolation can be a contributing factor, as lack of social support, loneliness, or social isolation plays a crucial role· in mental well-being.
+ It's crucial to understand that· major depression isn't a· one-size-fits-all condition. Each person's experience is unique, influenced by different factors. Treatment typically involves a multifaceted approach,our next group member will discuss more about the treatment of major depression."
+"""
+)
+
+response.stream_to_file(speech_file_path)
+# response.with_string_response.method()
