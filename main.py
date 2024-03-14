@@ -78,7 +78,7 @@ speech_file_path = Path(__file__).parent / "speech.mp3"
 response = client.audio.speech.create(
   model="tts-1",
   voice="nova",
-  # input="""Today is a wonderful day to build something people love!"""
+    # input="""Today is a wonderful day to build something people love!"""
   input="""Hi, everyone. Today, I'll discuss· the causes and risk factors of ·major depression, also known as· Major Depressive Disorder (MDD). 
 Major depression· is a complex mental health disorder· influenced by· various factors. While· we don't fully understand· its exact cause, it's believed to stem from· a combination of genetic, biological, environmental, and psychological elements.
  Genetic factors play a role. Evidence suggests· a genetic predisposition, with individuals· having a family history of depression· being at higher risk
@@ -91,6 +91,12 @@ Lastly, social isolation can be a contributing factor, as lack of social support
  It's crucial to understand that· major depression isn't a· one-size-fits-all condition. Each person's experience is unique, influenced by different factors. Treatment typically involves a multifaceted approach,our next group member will discuss more about the treatment of major depression."
 """
 )
-
 response.stream_to_file(speech_file_path)
-# response.with_string_response.method()
+
+# Convert the Path object to a string
+speech_file_path_str = str(speech_file_path)
+
+# Use the string path with st.audio
+st.audio(speech_file_path_str, format="audio/mp3")
+
+#================================================================================================
