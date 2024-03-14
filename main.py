@@ -17,30 +17,30 @@ client = openai.OpenAI()
 
 #================================================================================================
 
-response = client.images.generate(
-  model="dall-e-3",
-  prompt="a wooden boardwalk leading through a lush green meadow or wetland area. The grass and vegetation on either side of the boardwalk are dense and tall, suggesting a natural, possibly preserved or untouched environment. Above, there is a beautiful blue sky with scattered clouds, indicating fair weather. The setting appears peaceful and is likely a place for walking, nature observation, or conservation. There are no people visible in the image",
-  # prompt="大漠孤烟直，长河落日圆",
-  # prompt="鲁智深倒拔垂杨柳",
-  size="1024x1024",
-  quality="standard",
-  n=1,
-)
-
-image_url = response.data[0].url
-st.image(image_url, caption="Generated Image") 
-st.write(image_url)
-
-#================================================================================================
-# response = client.images.create_variation(
-#   image=open("example.png", "rb"),
-#   n=2,
-#   size="1024x1024"
+# response = client.images.generate(
+#   model="dall-e-3",
+#   prompt="a wooden boardwalk leading through a lush green meadow or wetland area. The grass and vegetation on either side of the boardwalk are dense and tall, suggesting a natural, possibly preserved or untouched environment. Above, there is a beautiful blue sky with scattered clouds, indicating fair weather. The setting appears peaceful and is likely a place for walking, nature observation, or conservation. There are no people visible in the image",
+#   # prompt="大漠孤烟直，长河落日圆",
+#   # prompt="鲁智深倒拔垂杨柳",
+#   size="1024x1024",
+#   quality="standard",
+#   n=1,
 # )
 
 # image_url = response.data[0].url
-# st.image(image_url, caption="Generated Image")
+# st.image(image_url, caption="Generated Image") 
 # st.write(image_url)
+
+#================================================================================================
+response = client.images.create_variation(
+  image=open("example.png", "rb"),
+  n=2,
+  size="1024x1024"
+)
+
+image_url = response.data[0].url
+st.image(image_url, caption="Generated Image")
+st.write(image_url)
 #================================================================================================
 # image_url="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
 # response = client.chat.completions.create(
