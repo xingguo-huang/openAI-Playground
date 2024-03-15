@@ -28,7 +28,7 @@ client = openai.OpenAI()
 #   prompt="白日依山尽，黄河入海流",
 #   size="1024x1024",
 #   quality="standard",
-#   n=1,
+#   n=1, 
 # )
 
 # image_url = response.data[0].url
